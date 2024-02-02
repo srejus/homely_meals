@@ -1,0 +1,51 @@
+.location-div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.location-div h1{
+    font-weight: 800;
+    margin-bottom: 15px;
+    font-size: 45px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.location-inp{
+    width: 60%;
+    height: 50px;
+    padding: 5px;
+    border: none;
+    outline: none;
+    margin-right: 10px;
+}
+
+.mrow{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.inner{
+    width: 50%;
+    margin: 25px;
+}
+
+.mbtn{
+    width: 150px;
+    height: 50px;
+    border-radius: 0;
+}
+
+@media(max-width:852px){
+    .inner{
+        width: 100%;
+    }
+
+    .sec{
+        display: none;
+    }
+}

@@ -1,0 +1,223 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Yummy | Cart</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'main.css' %}" rel="stylesheet">
+  <link href="{% static 'index.css' %}" rel="stylesheet">
+  <link href="{% static 'listing.css' %}" rel="stylesheet">
+
+  
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1>Yummy<span>.</span></h1>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/#why-us">Why Yummy</a></li>
+          <li><a href="/#testimonials">Testimonials</a></li><li><a href="/account/">Profile</a></li>
+          
+        </ul>
+      </nav><!-- .navbar -->
+
+      <a class="btn-book-a-table" href="/shop/cart">View Cart</a>
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  
+
+  <main id="main" style="padding: 10px;">
+    
+    <br>
+  
+    <!-- Products listing Section -->
+    <br><br>
+    <div class="mrow cart-row">
+      {% if products %}
+      <div class="cart-div">
+        {% for product in products %}
+        <div class="product-card">
+          <img src="/static/images/{{product.item.product_img}}" class="product-img" alt="">
+          <div class="product-name-div">
+            <h5 style="font-weight: 700;">{{product.item.item_name}} X {{product.quantity}}</h5>
+            <p>Total : {{product.total_price}} Rs</p>
+          </div>
+          <div class="mrow">
+            <button class="btn btn-danger" style="margin-right: 10px;" onclick="removeFromCart('{{product.item.id}}','reload')">-</button>
+            <button class="btn btn-danger" onclick="addToCart('{{product.item.id}}','reload')">+</button>
+          </div>
+        </div>
+        {% endfor %}
+        <br>
+        <hr>
+        <h5>Total Amount : {{total_amount}} Rs</h5>
+      </div>
+
+      <!-- Checkout Section -->
+      <div class="cart-div" style="height: auto;">
+        <br>
+        <h3 style="text-align: center;">Checkout</h3><br>
+        <form action="/orders/place-order" method="POST" style="margin-right: 25px;">
+          {% csrf_token %}
+          <input type="text" class="form-control" placeholder="Full Name*" name="name" required><br>
+          <input type="number" class="form-control" placeholder="Phone Number*" name="phone" required><br>
+          <input type="email" class="form-control" placeholder="Email*" name="email" required><br>
+          <input type="text" class="form-control" placeholder="Address 1*" name="address1" required><br>
+          <input type="text" class="form-control" placeholder="Address 2" name="address2"><br>
+          <input type="number" class="form-control" placeholder="Pincode*" name="pincode" required><br>
+          <label for="payment">Payment Option:</label>
+          <select name="payment" class="form-control">
+            <option value="CASH">Cash</option>
+            <option value="ONLINE">Pay Online</option>
+          </select><br>
+          <button class="btn btn-primary form-control">PlaceOrder</button>
+        </form>
+      </div>
+      {% else %}
+      <div style="height: 80vh;text-align: center;">
+        <br><br>
+        <h1>No Items Found In Cart!</h1>
+        <button class="btn btn-danger" onclick="history.back()">Go Back</button>
+      </div>
+      {% endif %}
+    </div>
+    <br><br><br>
+
+    <!-- Product listing Section Ends -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+
+    <div class="container">
+      <div class="row gy-3">
+        <div class="col-lg-3 col-md-6 d-flex">
+          <i class="bi bi-geo-alt icon"></i>
+          <div>
+            <h4>Address</h4>
+            <p>
+              A108 Adam Street <br>
+              New York, NY 535022 - US<br>
+            </p>
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links d-flex">
+          <i class="bi bi-telephone icon"></i>
+          <div>
+            <h4>Reservations</h4>
+            <p>
+              <strong>Phone:</strong> +1 5589 55488 55<br>
+              <strong>Email:</strong> info@example.com<br>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links d-flex">
+          <i class="bi bi-clock icon"></i>
+          <div>
+            <h4>Opening Hours</h4>
+            <p>
+              <strong>Mon-Sat: 11AM</strong> - 23PM<br>
+              Sunday: Closed
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Follow Us</h4>
+          <div class="social-links d-flex">
+            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Yummy</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+  </footer><!-- End Footer -->
+  <!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/cart.js' %}"></script>
+
+</body>
+
+</html>

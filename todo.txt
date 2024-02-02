@@ -1,0 +1,16 @@
+TASK
+
+-> Add Checkout Form in Cart and make it responsive -DONE
+-> Login and Signup Feature
+-> Place Order Option - DONE
+-> Payment Option
+-> View Review
+-> Add Review
+-> Order history - DONE
+
+
+Store Admin
+
+-> Stock manage
+-> Shop Open Close
+-> View user Reviews
