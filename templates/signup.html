@@ -57,7 +57,7 @@
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/#why-us">Why Yummy</a></li>
-          <li><a href="/#testimonials">Testimonials</a></li><li><a href="/account/">Profile</a></li>
+          <li><a href="/#testimonials">Testimonials</a></li><li><a href="/accounts/">Profile</a></li>
           
         </ul>
       </nav><!-- .navbar -->
@@ -88,7 +88,7 @@
         <input type="password" name="password2" class="form-control" placeholder="Confirm Password..." required><br>
         <input type="submit" value="Create Account" class="form-control btn btn-primary"><br><br>
 
-        <a href="/account/login" style="color: dodgerblue;">Already have an account? login</a>
+        <a href="/accounts/login" style="color: dodgerblue;">Already have an account? login</a>
 
       </form>
     </div>
@@ -102,7 +102,7 @@
   {% if err %}
   <script>
     alert('{{err}}');
-    window.location.href='/account/signup';
+    window.location.href='/accounts/signup';
   </script>
   {% endif %}
 

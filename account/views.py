@@ -25,7 +25,7 @@ class LoginView(View):
             login(request, user)
             return redirect("/")
         err = "Invalid credentails!"
-        return redirect(f"/account/login/?err={err}")
+        return redirect(f"/accounts/login/?err={err}")
     
 
 class SignupView(View):
@@ -42,17 +42,19 @@ class SignupView(View):
 
         if password != password2:
             err = "Password not matching"
-            return redirect(f"/account/signup?err={err}")
+            return redirect(f"/accounts/signup?err={err}")
         if User.objects.filter(Q(username=username) | Q(email=email)).exists():
             err = "User with this email or username already exists"
-            return redirect(f"/account/signup?err={err}")
+            return redirect(f"/accounts/signup?err={err}")
         
         user = User.objects.create_user(username,email,password)
         # send welcome email
         user.email = email
         user.first_name = full_name
         user.save()
-        return redirect('/account/login')
+
+        Account.objects.create(user=user)
+        return redirect('/accounts/login')
     
     
 

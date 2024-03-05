@@ -5,12 +5,19 @@ from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
+from account.models import Account
 from .models import *
+
 
 # Create your views here.
 class ShopView(View):
     def get(self,request,id=None):
         location = request.GET.get("location")
+        if request.user.is_authenticated:
+            acc = Account.objects.get(user=request.user)
+            acc.place = location
+            acc.save()
+            
         shops = Shops.objects.filter(location=location).order_by('-is_open')
         if id:
             try:

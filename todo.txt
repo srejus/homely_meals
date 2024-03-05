@@ -1,11 +1,11 @@
 TASK
 
 -> Add Checkout Form in Cart and make it responsive -DONE
--> Login and Signup Feature
+-> Login and Signup Feature -DONE
 -> Place Order Option - DONE
 -> Payment Option
--> View Review
--> Add Review
+-> View Review -DONE
+-> Add Review -DONE
 -> Order history - DONE
 
 
@@ -14,3 +14,22 @@ Store Admin
 -> Stock manage
 -> Shop Open Close
 -> View user Reviews
+
+
+
+
+Forms for Shop Creation
+
+Store Register
+
+-> store_name
+-> location
+-> owner_name
+-> owner_phone
+-> ownmer_email
+-> store_cover
+-> license number
+
+
+Add Product By Store Admin
+ -refer models.py -> shop class Products()
