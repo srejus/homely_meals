@@ -12,8 +12,8 @@ TASK
 Store Admin
 
 -> Stock manage
--> Shop Open Close
--> View user Reviews
+-> Shop Open Close - DONE
+-> View user Reviews - DONE
 
 
 

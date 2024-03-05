@@ -12,5 +12,7 @@ urlpatterns = [
 
     # shop dashboard session
     path('login',ShopLogin.as_view()),
+    path('open/<int:id>',ShopOpenView.as_view()),
+    path('close/<int:id>',ShopCloseView.as_view()),
     path('dashboard',ShopDashboardView.as_view()),
 ]

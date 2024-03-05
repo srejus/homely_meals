@@ -57,6 +57,11 @@
         <ul>
         
           <li><a href="/accounts/">Profile</a></li>
+          {% if shop.is_open %}
+          <li><a href="/shop/close/{{shop.id}}" class="btn btn-danger" style="color: white;">Close Shop</a></li>
+          {% else %}
+          <li><a href="/shop/open/{{shop.id}}" class="btn btn-success" style="color: white;">Open Shop</a></li>
+          {% endif %}
           
         </ul>
       </nav><!-- .navbar -->

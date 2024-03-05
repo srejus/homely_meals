@@ -165,3 +165,20 @@ class ShopDashboardView(View):
         shop = Shops.objects.filter(user=request.user).last()
         return render(request,'shop_dashboard.html',{'shop':shop})
     
+
+@method_decorator(login_required, name='dispatch')
+class ShopCloseView(View):
+    def get(self,request,id):
+        shop = Shops.objects.filter(user=request.user).last()
+        shop.is_open = False
+        shop.save()
+        return redirect("/shop/dashboard")
+    
+
+@method_decorator(login_required, name='dispatch')
+class ShopOpenView(View):
+    def get(self,request,id):
+        shop = Shops.objects.filter(user=request.user).last()
+        shop.is_open = True
+        shop.save()
+        return redirect("/shop/dashboard")
