@@ -9,5 +9,6 @@ class IndexView(View):
     def get(self,request):
         if request.user.is_authenticated:
             acc = Account.objects.get(user=request.user)
-            return redirect(f"/shop/?location={acc.place}")
+            if acc.place:
+                return redirect(f"/shop/?location={acc.place}")
         return render(request,'index.html')

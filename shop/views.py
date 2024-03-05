@@ -147,3 +147,21 @@ class RateStoreView(View):
         self.calculate_rating(rating,shop)
         return redirect(f"/shop/reviews/{id}")
         
+
+# =======================SHOP ADMIN SESSION=======================
+    
+
+class ShopLogin(View):
+    def get(self,request):
+        return render(request,'shop_login.html')
+
+
+@method_decorator(login_required, name='dispatch')
+class ShopDashboardView(View):
+    def get(self,request):
+        if not Shops.objects.filter(user=request.user).exists():
+            return redirect("/")
+        
+        shop = Shops.objects.filter(user=request.user).last()
+        return render(request,'shop_dashboard.html',{'shop':shop})
+    

@@ -9,4 +9,8 @@ urlpatterns = [
     path('cart',CartView.as_view()),
     path('reviews/<int:id>',ReviewView.as_view()),
     path('reviews/<int:id>/write',RateStoreView.as_view()),
+
+    # shop dashboard session
+    path('login',ShopLogin.as_view()),
+    path('dashboard',ShopDashboardView.as_view()),
 ]
