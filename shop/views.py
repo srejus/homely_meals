@@ -13,7 +13,7 @@ from .models import *
 class ShopView(View):
     def get(self,request,id=None):
         location = request.GET.get("location")
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and location:
             acc = Account.objects.get(user=request.user)
             acc.place = location
             acc.save()
@@ -182,3 +182,26 @@ class ShopOpenView(View):
         shop.is_open = True
         shop.save()
         return redirect("/shop/dashboard")
+    
+
+@method_decorator(login_required, name='dispatch')
+class ShopStockView(View):
+    def get(self,request):
+        if not Shops.objects.filter(user=request.user).exists():
+            return redirect("/")
+        
+        shop = Shops.objects.filter(user=request.user).last()
+        items = Products.objects.filter(shop=shop)
+        return render(request,'shop_stock.html',{'items':items})
+    
+    def post(self,request,id):
+        item = Products.objects.get(id=id)
+        status = request.POST.get("status")
+
+        if not status:
+            item.in_stock = False
+        if status == 'on':
+            item.in_stock = True
+        
+        item.save()
+        return redirect("/shop/manage-stock")

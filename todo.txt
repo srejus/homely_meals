@@ -11,9 +11,10 @@ TASK
 
 Store Admin
 
--> Stock manage
+-> Stock manage - DONE
 -> Shop Open Close - DONE
 -> View user Reviews - DONE
+-> Order manage
 
 
 
