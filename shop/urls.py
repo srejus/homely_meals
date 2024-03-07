@@ -16,5 +16,7 @@ urlpatterns = [
     path('close/<int:id>',ShopCloseView.as_view()),
     path('dashboard',ShopDashboardView.as_view()),
     path('manage-stock',ShopStockView.as_view()),
+    path('orders',ShopOrderView.as_view()),
+    path('orders/<int:id>',ShopOrderView.as_view()),
     path('manage-stock/<int:id>',ShopStockView.as_view()),
 ]

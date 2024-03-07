@@ -7,6 +7,7 @@ from django.utils.decorators import method_decorator
 
 from account.models import Account
 from .models import *
+from orders.models import Order,OrderItem
 
 
 # Create your views here.
@@ -205,3 +206,19 @@ class ShopStockView(View):
         
         item.save()
         return redirect("/shop/manage-stock")
+    
+
+@method_decorator(login_required, name='dispatch')
+class ShopOrderView(View):
+    def get(self,request,id=None):
+        if not Shops.objects.filter(user=request.user).exists():
+            return redirect("/")
+        
+        if id:
+            order = Order.objects.get(id=id)
+            order_items = OrderItem.objects.filter(order=order)
+            return render(request,'shop_order_view.html',{'items':order_items})
+        
+        shop =  Shops.objects.filter(user=request.user).last()
+        orders = Order.objects.filter(shop=shop)
+        return render(request,'shop_orders.html',{'orders':orders})

@@ -14,7 +14,7 @@ Store Admin
 -> Stock manage - DONE
 -> Shop Open Close - DONE
 -> View user Reviews - DONE
--> Order manage
+-> Order manage - DONE
 
 
 
