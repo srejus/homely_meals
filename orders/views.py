@@ -22,15 +22,17 @@ class PlaceOrderView(View):
         pincode = request.POST.get("pincode")
         pay_option = request.POST.get("payment")
 
+        cart_items = Cart.objects.filter(user=request.user)
+        shop = cart_items.last().item.shop
+
         order = Order.objects.create(
             user=request.user,
             full_name=name,phone=phone,
             email=email,address_1=address_1,address_2=address_2,
-            pincode=pincode,pay_option=pay_option
+            pincode=pincode,pay_option=pay_option,shop=shop
         )
         total_amount = 0.0
 
-        cart_items = Cart.objects.filter(user=request.user)
         for item in cart_items:
             OrderItem.objects.create(order=order,item_name=item.item.item_name,
                                      quantity=item.quantity,total_price=item.total_price)
@@ -43,6 +45,9 @@ class PlaceOrderView(View):
 
         if pay_option == 'ONLINE':
             # create stripe payment link and redirect to the page
+            from homely_food.utils import create_stripe_payment_link
+            pay_url = create_stripe_payment_link(total_amount,f"ORDER_{order.id}")
+            return redirect(pay_url)
             return render(request,'pay_online.html',{'order':order})
 
         return render(request,'success.html',{'order':order})

@@ -8,7 +8,7 @@ TASK
 -> Add Checkout Form in Cart and make it responsive -DONE
 -> Login and Signup Feature -DONE
 -> Place Order Option - DONE
--> Payment Option
+-> Payment Option - DONE
 -> View Review -DONE
 -> Add Review -DONE
 -> Order history - DONE

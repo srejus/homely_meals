@@ -86,8 +86,8 @@
         <div class="product-card">
           <img src="/static/images/{{product.item.product_img}}" class="product-img" alt="">
           <div class="product-name-div">
-            <h5 style="font-weight: 700;">{{product.item.item_name}} X {{product.quantity}}</h5>
-            <p>Total : {{product.total_price}} Rs</p>
+            <h5 style="font-weight: 700;">{{product.item.item_name}} X <span id="itm_qnty_{{product.item.id}}">{{product.quantity}}</span></h5>
+            <p>Total : <span id="itm_tot_{{product.item.id}}">{{product.total_price}}</span> Rs</p>
           </div>
           <div class="mrow">
             <button class="btn btn-danger" style="margin-right: 10px;" onclick="removeFromCart('{{product.item.id}}','reload')">-</button>
@@ -97,7 +97,7 @@
         {% endfor %}
         <br>
         <hr>
-        <h5>Total Amount : {{total_amount}} Rs</h5>
+        <h5>Total Amount : <span id="tot">{{total_amount}}</span> Rs</h5>
       </div>
 
       <!-- Checkout Section -->

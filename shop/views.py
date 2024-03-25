@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views import View
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -41,6 +41,12 @@ class AddToCartView(View):
             return
         
         cart_obj = Cart.objects.filter(user=user,item=item)
+        try:
+            if cart_obj.last().item.shop != item.shop:
+                print("Items must from same shop")
+                return 
+        except:
+            pass
 
         if cart_obj.exists():
             cart_obj = cart_obj.last()
@@ -54,8 +60,18 @@ class AddToCartView(View):
         return
     
     def get(self,request,id):
-        self.add_to_cart(id,request.user)
-        return HttpResponse("Added to Cart")
+        self.add_to_cart(id,request.user)  
+        cart = Cart.objects.filter(user=request.user)
+        total_price_sum = cart.aggregate(total_price_sum=Sum('total_price'))['total_price_sum']
+        cart = Cart.objects.filter(user=request.user,item__id=id).last()
+
+        data = {
+            "total_price":total_price_sum,
+            "item_qnty":cart.quantity,
+            "item_total":cart.total_price
+        }
+        return JsonResponse(data)
+    
 
 
 @method_decorator(login_required, name='dispatch')
@@ -72,20 +88,41 @@ class RemoveFromCartView(View):
             cart_obj = cart_obj.last()
             if cart_obj.quantity == 1:
                 cart_obj.delete()
-                return
+                return 0
             
             cart_obj.quantity -= 1
             cart_obj.total_price -= item.price
             cart_obj.save()
        
-        return
+        return 1
     
     def get(self,request,id):
-        self.remove_from_cart(id,request.user)
-        return HttpResponse("Removed from Cart")
+        res = self.remove_from_cart(id,request.user)
+        if res == 0:
+            data = {
+                "total_price":0,
+                "item_qnty":0,
+                "item_total":0
+            }
+            return JsonResponse(data)
+        
+        cart = Cart.objects.filter(user=request.user)
+        total_price_sum = cart.aggregate(total_price_sum=Sum('total_price'))['total_price_sum']
+        cart = Cart.objects.filter(user=request.user,item__id=id).last()
+
+        data = {
+            "total_price":total_price_sum,
+            "item_qnty":cart.quantity,
+            "item_total":cart.total_price
+        }
+        return JsonResponse(data)
     
 
+from django.views.decorators.cache import never_cache
+
+
 @method_decorator(login_required, name='dispatch')
+@method_decorator(never_cache, name='dispatch')
 class CartView(View):
     def get(self,request):
         cart = Cart.objects.filter(user=request.user)
