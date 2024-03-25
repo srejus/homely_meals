@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Yummy | Signup</title>
+  <title>Yummy | Shop Registration</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -78,21 +78,18 @@
   </main><!-- End #main -->
   <div class="mrow">
     <div class="inner">
-      <form action="" method="POST">
+      <form action="/accounts/shop-reg" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <h3 style="text-align: center;">Create Account</h3>
-        <input type="text" name="username" class="form-control" placeholder="Enter Username..." required><br>
-        <input type="text" name="full_name" class="form-control" placeholder="Enter Full Name..." required><br>
-        <input type="email" name="email" class="form-control" placeholder="Enter Email..." required><br>
-        <input type="password" name="password1" class="form-control" placeholder="Enter Password..." required><br>
-        <input type="password" name="password2" class="form-control" placeholder="Confirm Password..." required><br>
-        <label for="user_type">USER TYPE</label>
-        <select name="user_type" class="form-control">
-          <option value="USER">USER</option>
-          <option value="SHOP">SHOP</option>
-        </select><br>
+        <h3 style="text-align: center;">Register Your Shop</h3>
+        <input type="hidden" name="acc_id" value="{{acc.id}}">
+        <input type="text" name="shop_name" class="form-control" placeholder="Enter Shop Name...*" required><br>
+        <input type="text" name="location" class="form-control" placeholder="Shop Location...*" required><br>
+        <label for="">Shop Cover Image</label>
+        <input type="file" name="shop_cover" accept="image/*" class="form-control" required><br>
+        <input type="number" required placeholder="Shop License Number...*" class="form-control" name="lc_num"><br>
+       
         
-        <input type="submit" value="Create Account" class="form-control btn btn-primary"><br><br>
+        <input type="submit" value="Submit" class="form-control btn btn-primary"><br><br>
 
         <a href="/accounts/login" style="color: dodgerblue;">Already have an account? login</a>
 

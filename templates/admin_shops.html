@@ -91,6 +91,7 @@
         </div><br>
         <p style="margin-bottom: -2px;">{{shop.location}}</p>
         <p>{{shop.rating}} <i class="fa fa-star"></i></p>
+        <p>SHOP LICENSE NUMBER: {{shop.lc_num}}</p>
 
         {% if shop.approved %}
         <button class="btn btn-danger" onclick="window.location.href='/admin-user/shops/reject/{{shop.id}}'">Mark as Disabled</button>

@@ -20,7 +20,8 @@ Store Admin
 -> Shop Open Close - DONE
 -> View user Reviews - DONE
 -> Order manage - DONE
--> Manage Order Status
+-> Manage Order Status - DONE
+-> In manage stocks add btn to add new item
 
 
 Admin shop_dashboard
@@ -32,7 +33,7 @@ Admin shop_dashboard
 
 
 
--> Signup page for Usertype selection and also Shop Creation
+-> Signup page for Usertype selection and also Shop Creation - DONE
 
 
 Forms for Shop Creation

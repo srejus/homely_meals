@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from .models import *
+from shop.models import *
 
 # Create your views here.
 
@@ -47,6 +48,7 @@ class SignupView(View):
         username = request.POST.get("username")
         password = request.POST.get("password1")
         password2 = request.POST.get("password2")
+        user_type = request.POST.get("user_type")
 
         if password != password2:
             err = "Password not matching"
@@ -61,10 +63,15 @@ class SignupView(View):
         user.first_name = full_name
         user.save()
 
-        Account.objects.create(user=user)
+        acc = Account.objects.create(user=user,user_type=user_type)
+        
+        if user_type == 'SHOP':
+            return render(request,'shop_reg.html',{'acc':acc})
+        
         return redirect('/accounts/login')
 
 
+@method_decorator(login_required,name='dispatch')
 class ProfileView(View):
     def get(self,request):
         return render(request,'profile.html',{'user':request.user})
@@ -73,4 +80,29 @@ class ProfileView(View):
 class LogoutView(View):
     def get(self,request):
         logout(request)
+        return redirect("/accounts/login/")
+
+
+
+class ShopRegView(View):
+    def get(self,request):
+        return render(request,'shop_reg.html')
+    
+    def post(self,request):
+        shop_name = request.POST.get("shop_name")
+        shop_location = request.POST.get("location")
+        lc_num = request.POST.get("lc_num")
+        cover = request.FILES.get("shop_cover")
+        acc_id = request.POST.get('acc_id')
+
+        print("Acc Id : ",acc_id)
+
+        acc = Account.objects.get(id=acc_id)
+        if Shops.objects.filter(user=acc.user).exists():
+            err = "Shop already exists for this User!"
+            return redirect(f"/accounts/signup?err={err}")
+        
+        Shops.objects.create(user=acc.user,shop_name=shop_name,
+                                    location=shop_location,lc_num=lc_num,store_cover=cover)
+
         return redirect("/accounts/login/")
