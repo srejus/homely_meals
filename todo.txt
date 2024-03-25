@@ -1,3 +1,8 @@
+User type selection
+
+if usertype == shop and Shop.objects.filter() any then -> shop_dashboard else user_home
+
+
 TASK
 
 -> Add Checkout Form in Cart and make it responsive -DONE

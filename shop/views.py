@@ -162,6 +162,9 @@ class ShopDashboardView(View):
     def get(self,request):
         if not Shops.objects.filter(user=request.user).exists():
             return redirect("/")
+        acc = Account.objects.get(user=request.user)
+        if acc.user_type == Account.USER:
+            return redirect("/")
         
         shop = Shops.objects.filter(user=request.user).last()
         return render(request,'shop_dashboard.html',{'shop':shop})

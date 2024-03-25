@@ -9,9 +9,11 @@ from shop.models import Shops
 class IndexView(View):
     def get(self,request):
         if request.user.is_authenticated:
-            if Shops.objects.filter(user=request.user).exists():
-                return redirect("/shop/dashboard")
+            # if Shops.objects.filter(user=request.user).exists():
+            #     return redirect("/shop/dashboard")
             acc = Account.objects.get(user=request.user)
+            if acc.user_type == Account.SHOP:
+                return redirect("/shop/dashboard")
             if acc.place:
                 return redirect(f"/shop/?location={acc.place}")
         return render(request,'index.html')
