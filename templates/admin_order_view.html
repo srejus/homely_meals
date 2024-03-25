@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Yummy | Login</title>
+  <title>Yummy | Admin Orders</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -47,7 +47,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
+      <a href="/admin-user/" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1>Yummy<span>.</span></h1>
@@ -55,14 +55,14 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/#why-us">Why Yummy</a></li>
-          <li><a href="/#testimonials">Testimonials</a></li><li><a href="/accounts/">Profile</a></li>
+        
+          <li><a href="/accounts/">Profile</a></li>
+          <li><a href="/accounts/logout">Logout</a></li>
+        
           
         </ul>
       </nav><!-- .navbar -->
 
-      <!-- <a class="btn-book-a-table" href="#book-a-table">Cart</a> -->
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -74,40 +74,73 @@
 
   <main id="main" style="height: 150px;">
 
+    <style>
+      .switch {
+          position: relative;
+          display: inline-block;
+          width: 60px;
+          height: 34px;
+      }
+
+      .switch input { 
+          opacity: 0;
+          width: 0;
+          height: 0;
+      }
+
+      .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          -webkit-transition: .4s;
+          transition: .4s;
+      }
+
+      .slider:before {
+          position: absolute;
+          content: "";
+          height: 26px;
+          width: 26px;
+          left: 4px;
+          bottom: 4px;
+          background-color: white;
+          -webkit-transition: .4s;
+          transition: .4s;
+      }
+
+      input:checked + .slider {
+          background-color: #2196F3;
+      }
+
+      input:focus + .slider {
+          box-shadow: 0 0 1px #2196F3;
+      }
+
+      input:checked + .slider:before {
+          -webkit-transform: translateX(26px);
+          -ms-transform: translateX(26px);
+          transform: translateX(26px);
+      }
+  </style>
+
 
   </main><!-- End #main -->
-  <div class="mrow">
-    <div class="inner">
-      <form action="" method="POST">
-        {% csrf_token %}
-        {% if type_ == 'admin' %}
-        <h3 style="text-align: center;">Login as Admin</h3>
-        {% else %}
-        <h3 style="text-align: center;">Login</h3>
-        {% endif %}
-        <input required type="text" name="username" class="form-control" placeholder="Enter Username..."><br>
-        <input required type="password" name="password" class="form-control" placeholder="Enter Password..."><br>
-        <input type="submit" value="Login" class="form-control btn btn-primary"><br><br>
-
-        <a href="/accounts/signup" style="color: dodgerblue;">Create new account</a><br><br>
-        <a href="/accounts/login/?type=admin" style="color: dodgerblue;">Login as Admin</a>
-
-      </form>
-    </div>
+  <div style="display: flex;flex-direction: column;align-items: center;height: 500px;">
+    <h2 style="font-weight: 700;text-align: center;">Manage Orders </h2><br><br>
+   
+      {% for item in items %}
+      <div class="card p-4" style="width: 85%;">
+        <h4>{{item.item_name}} X {{item.quantity}}</h4>
+        <p>{{item.total_price}} Rs</p>
+      </div>
+      {% endfor %}
+      
     
-    {% if err %}
-    <script>
-      alert('{{err}}');
-      window.location.href='/accounts/login';
-    </script>
-    {% endif %}
-
-    <div class="inner sec" style="margin: 25px;">
-      <h1 style="font-weight: 900;
-      font-size: 70px;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">We Provide the <br> Best Food for You</h1>
-    </div>
-  </div><br><br><br><br>
-
+  </div>
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
 

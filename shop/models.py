@@ -9,6 +9,7 @@ class Shops(models.Model):
     location = models.CharField(max_length=100)
     rating = models.DecimalField(default=0.0,max_digits=2,decimal_places=1)
     is_open = models.BooleanField(default=True)
+    approved = models.BooleanField(default=False)
 
 
 class ShopImages(models.Model):

@@ -20,8 +20,19 @@ Store Admin
 -> Shop Open Close - DONE
 -> View user Reviews - DONE
 -> Order manage - DONE
+-> Manage Order Status
 
 
+Admin shop_dashboard
+
+-> Manage Users(View/Search) - DONE
+-> Manage Orders(View) - DONE
+-> Manage Shops - DONE
+-> Manage Reviews - DONE
+
+
+
+-> Signup page for Usertype selection and also Shop Creation
 
 
 Forms for Shop Creation

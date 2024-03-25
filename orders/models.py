@@ -9,6 +9,17 @@ class Order(models.Model):
         ('CASH','CASH'),
         ('ONLINE','ONLINE'),
     )
+
+    RECEIVED = 'RECEIVED'
+    ACCEPTED = 'ACCEPTED'
+    REJECTED = 'REJECTED'
+
+    ORDER_STATUS_CHOICES = (
+        (RECEIVED,RECEIVED),
+        (ACCEPTED,ACCEPTED),
+        (REJECTED,REJECTED),
+    )
+
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='order_user')
     shop = models.ForeignKey(Shops,on_delete=models.CASCADE,related_name='order_shop')
     full_name = models.CharField(max_length=100)
@@ -19,6 +30,7 @@ class Order(models.Model):
     pincode = models.CharField(max_length=6,null=True,blank=True)
     total_price = models.FloatField(default=0.0)
     pay_option = models.CharField(max_length=10,default='CASH')
+    status = models.CharField(max_length=25,default=RECEIVED,choices=ORDER_STATUS_CHOICES)
     order_created_at = models.DateTimeField(auto_now_add=True)
 
 

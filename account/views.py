@@ -14,21 +14,25 @@ from .models import *
 class LoginView(View):
     def get(self,request):
         err = request.GET.get("err")
-        return render(request,'login.html',{'err':err})
+        type_ = request.GET.get("type")
+        return render(request,'login.html',{'err':err,"type_":type_})
 
     def post(self,request):
         username = request.POST.get("username")
         password = request.POST.get("password")
-        type_ = request.POST.get("type","user")
+        type_ = request.GET.get("type","user")
         
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            if type_ == 'shop':
+                return redirect("/shops/dashboard")
+            
+            if type_ == 'admin':
+                return redirect("/admin-user/")
+            
             return redirect("/")
         err = "Invalid credentails!"
-
-        if type_ == 'shop':
-            return redirect("/shops/dashboard")
         return redirect(f"/accounts/login/?err={err}")
     
 
@@ -59,9 +63,14 @@ class SignupView(View):
 
         Account.objects.create(user=user)
         return redirect('/accounts/login')
-    
-    
+
 
 class ProfileView(View):
     def get(self,request):
         return render(request,'profile.html',{'user':request.user})
+    
+
+class LogoutView(View):
+    def get(self,request):
+        logout(request)
+        return redirect("/accounts/login/")

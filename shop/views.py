@@ -19,7 +19,7 @@ class ShopView(View):
             acc.place = location
             acc.save()
             
-        shops = Shops.objects.filter(location=location).order_by('-is_open')
+        shops = Shops.objects.filter(location=location,approved=True).order_by('-is_open')
         if id:
             try:
                 shop = Shops.objects.get(id=id)

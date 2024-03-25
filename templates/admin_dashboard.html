@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Yummy | Login</title>
+  <title>Yummy| Admin Dashboard</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -18,6 +18,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
   <!-- Vendor CSS Files -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -31,12 +33,10 @@
   <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
   <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-
   <!-- Template Main CSS File -->
   <link href="{% static 'main.css' %}" rel="stylesheet">
   <link href="{% static 'index.css' %}" rel="stylesheet">
+  <link href="{% static 'listing.css' %}" rel="stylesheet">
 
   
 </head>
@@ -47,7 +47,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
+      <a href="/admin-user/" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1>Yummy<span>.</span></h1>
@@ -55,14 +55,14 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/#why-us">Why Yummy</a></li>
-          <li><a href="/#testimonials">Testimonials</a></li><li><a href="/accounts/">Profile</a></li>
+        
+          <li><a href="/accounts/">Profile</a></li>
+          <li><a href="/accounts/logout">Logout</a></li>
+        
           
         </ul>
       </nav><!-- .navbar -->
 
-      <!-- <a class="btn-book-a-table" href="#book-a-table">Cart</a> -->
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -70,43 +70,39 @@
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-  
 
-  <main id="main" style="height: 150px;">
+  <main id="main">
+    <br><br><br><br><br><br>
+    <h1 style="text-align: center;">Admin Dashboard</h1>
+    <div class="item-div" style="justify-content: center;">
 
+      <div class="item-card" onclick="window.location.href='/admin-user/users'" style="border: 2px solid black;height: 130px;padding: 25px;width: 40%;">
+        <h4>Manage Users</h4>
+        <p> <i class="fa fa-users" style="font-size: 30px;margin-top: 15px;"></i></p>
+    </div>
+   
+    <div class="item-card" onclick="window.location.href='/admin-user/shops'" style="border: 2px solid black;height: 130px;padding: 25px;width: 40%;">
+        <h4>Manage Shop</h4>
+        <p> <i class="fa fa-store" style="font-size: 30px;margin-top: 15px;"></i></p>
+    </div>
+
+    <div class="item-card" onclick="window.location.href='/admin-user/orders'" style="border: 2px solid black;height: 130px;padding: 25px;width: 40%;">
+      <h4>Manage Orders</h4>
+      <p> <i class="fa fa-shopping-cart" style="font-size: 30px;margin-top: 15px;"></i></p>
+  </div>
+
+    <div class="item-card" onclick="window.location.href='/admin-user/reviews'" style="border: 2px solid black;height: 130px;padding: 25px;width: 40%;">
+        <h4>Manage Reviews</h4>
+        <p> <i class="fa fa-star" style="font-size: 30px;margin-top: 15px;"></i></p>
+    </div>
+
+
+    </div>
+    <br><br><br><br><br><br>
 
   </main><!-- End #main -->
-  <div class="mrow">
-    <div class="inner">
-      <form action="" method="POST">
-        {% csrf_token %}
-        {% if type_ == 'admin' %}
-        <h3 style="text-align: center;">Login as Admin</h3>
-        {% else %}
-        <h3 style="text-align: center;">Login</h3>
-        {% endif %}
-        <input required type="text" name="username" class="form-control" placeholder="Enter Username..."><br>
-        <input required type="password" name="password" class="form-control" placeholder="Enter Password..."><br>
-        <input type="submit" value="Login" class="form-control btn btn-primary"><br><br>
 
-        <a href="/accounts/signup" style="color: dodgerblue;">Create new account</a><br><br>
-        <a href="/accounts/login/?type=admin" style="color: dodgerblue;">Login as Admin</a>
-
-      </form>
-    </div>
-    
-    {% if err %}
-    <script>
-      alert('{{err}}');
-      window.location.href='/accounts/login';
-    </script>
-    {% endif %}
-
-    <div class="inner sec" style="margin: 25px;">
-      <h1 style="font-weight: 900;
-      font-size: 70px;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">We Provide the <br> Best Food for You</h1>
-    </div>
-  </div><br><br><br><br>
+  <br><br>
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
