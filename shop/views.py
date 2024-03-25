@@ -262,3 +262,31 @@ class ShopOrderView(View):
         shop =  Shops.objects.filter(user=request.user).last()
         orders = Order.objects.filter(shop=shop)
         return render(request,'shop_orders.html',{'orders':orders})
+    
+
+@method_decorator(login_required, name='dispatch')
+class ShopOrderAcceptView(View):
+    def get(self,request,id=None):
+        if not Shops.objects.filter(user=request.user).exists():
+            return redirect("/")
+        
+        if id:
+            order = Order.objects.get(id=id)
+            order.status = Order.ACCEPTED
+            order.save()
+
+        return redirect("/shop/orders")
+    
+
+@method_decorator(login_required, name='dispatch')
+class ShopOrderRejectView(View):
+    def get(self,request,id=None):
+        if not Shops.objects.filter(user=request.user).exists():
+            return redirect("/")
+        
+        if id:
+            order = Order.objects.get(id=id)
+            order.status = Order.REJECTED
+            order.save()
+
+        return redirect("/shop/orders")

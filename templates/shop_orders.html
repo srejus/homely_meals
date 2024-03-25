@@ -55,14 +55,14 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/#why-us">Why Yummy</a></li>
-          <li><a href="/#testimonials">Testimonials</a></li><li><a href="/accounts/">Profile</a></li>
+        
+          <li><a href="/accounts/">Profile</a></li>
+          <li><a href="/accounts/logout">Logout</a></li>
+        
           
         </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" href="#">Manage Orders</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -129,7 +129,7 @@
 
 
   </main><!-- End #main -->
-  <div style="display: flex;flex-direction: column;align-items: center;height: 500px;">
+  <div style="display: flex;flex-direction: column;align-items: center;">
     <h2 style="font-weight: 700;text-align: center;">Manage Orders</h2><br><br>
    
       {% for order in orders %}
@@ -139,17 +139,31 @@
           <div class="col">
             <button class="btn btn-success">{{order.total_price}} Rs</button>
             <button class="btn btn-success">{{order.pay_option}}</button>
+            {% if order.status == 'RECEIVED' %}
+            <button class="btn btn-secondary">{{order.status}}</button>
+            {% else %}
+            {% if order.status == 'ACCEPTED' %}
+              <button class="btn btn-success">{{order.status}}</button>
+            {% else %}
+            <button class="btn btn-danger">{{order.status}}</button>
+            {% endif %}
+            {% endif %}
           </div>
         </div><br>
         <p>Address</p>
         <p style="margin-bottom: -2px;">{{order.full_name}}, {{order.phone}}</p>
         <p>{{order.address_1}}, {{order.address_2}}- pincode : {{order.pincode}}</p>
-        <p>{{order.order_created_at}}</p>
+        <p>{{order.order_created_at}}</p><br>
+        <div>
+          <button class="btn btn-danger" onclick="window.location.href='/shop/orders/reject/{{order.id}}'">Reject</button>
+          <button class="btn btn-success" onclick="window.location.href='/shop/orders/accept/{{order.id}}'">Accpet</button>
+        </div>
       </div>
       {% endfor %}
       
-    
+    <br><br><br>
   </div>
+  <br><br><br>
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
 
