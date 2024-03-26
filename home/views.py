@@ -14,6 +14,6 @@ class IndexView(View):
             acc = Account.objects.get(user=request.user)
             if acc.user_type == Account.SHOP:
                 return redirect("/shop/dashboard")
-            if acc.place:
-                return redirect(f"/shop/?location={acc.place}")
+            # if acc.place:
+            #     return redirect(f"/shop/?location={acc.place}")
         return render(request,'index.html')

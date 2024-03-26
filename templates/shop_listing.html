@@ -59,9 +59,15 @@
           <li><a href="/#why-us">Why Yummy</a></li>
           <li><a href="/#testimonials">Testimonials</a></li>
           <li><a href="/accounts/">Profile</a></li>
+          {% if request.user.is_authenticated %}
+          <li><a href="/accounts/logout">Logout</a></li>
+          {% else %}
+          <li><a href="/accounts/login/">Login</a></li>
+          {% endif %}
           
         </ul>
       </nav><!-- .navbar -->
+      
 
       <a class="btn-book-a-table" href="/shop/cart">View Cart</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
