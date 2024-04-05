@@ -23,13 +23,17 @@ class ShopView(View):
         if id:
             try:
                 shop = Shops.objects.get(id=id)
+                if not shop.is_open:
+                    err = "Sorry the shop is closed, please check later!"
+                    return redirect(f"/shop?err={err}&location={location}")
             except Shops.DoesNotExist:
                 return redirect("/shop")
             shop_imgs = ShopImages.objects.filter(shop=shop)
             products = Products.objects.filter(shop=shop)
             return render(request,'shop.html',{'shop':shop,'shop_imgs':shop_imgs,'products':products})
         
-        return render(request,'shop_listing.html',{'shops':shops})
+        err = request.GET.get("err")
+        return render(request,'shop_listing.html',{'shops':shops,'err':err,'location':location})
     
 
 @method_decorator(login_required, name='dispatch')

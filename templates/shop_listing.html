@@ -82,7 +82,7 @@
     <br><br><br>
     <div class="item-div">
     {% for shop in shops %}
-    <div class="item-card" onclick="window.location.href='/shop/{{shop.id}}'">
+    <div class="item-card" onclick="window.location.href='/shop/{{shop.id}}?location={{location}}'">
       {% if shop.is_open %}
         <img src="/static/images/{{shop.store_cover}}" class="item-cover" alt="">
       {% else %}
@@ -150,6 +150,18 @@
 
       </div>
     </div>
+
+    {% if err %}
+
+    <input type="hidden" name="" id="loc" value="{{location}}">
+
+    <script>
+      alert('{{err}}');
+      var loc = document.getElementById('loc').value;
+      window.location.href = "/shop?location="+loc
+    </script>
+
+    {% endif %}
 
     <div class="container">
       <div class="copyright">
