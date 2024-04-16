@@ -294,3 +294,36 @@ class ShopOrderRejectView(View):
             order.save()
 
         return redirect("/shop/orders")
+    
+
+@method_decorator(login_required,name='dispatch')
+class ShopItemsView(View):
+    def get(self,request,id=None):
+        items = Products.objects.filter(shop__id=id).order_by('-id')
+        return render(request,'shop_items.html',{'items':items})
+    
+
+@method_decorator(login_required,name='dispatch')
+class ShopItemAddView(View):
+    def get(self,request):
+        return render(request,'shop_items_add.html')
+    
+    def post(self,request):
+        title = request.POST.get("title")
+        price = request.POST.get("price")
+        img = request.POST.get("img")
+
+        shop = Shops.objects.filter(user=request.user).last()
+
+        Products.objects.create(shop=shop,item_name=title,price=price,product_img=img,in_stock=True)
+
+        return redirect(f"/shop/items/{shop.id}")
+    
+
+
+@method_decorator(login_required,name='dispatch')
+class ShopDeleteItemsView(View):
+    def get(self,request,id=None):
+        items = Products.objects.filter(id=id).last()
+        items.delete()
+        return redirect(f"/shop/items/{items.shop.id}")

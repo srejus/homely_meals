@@ -22,4 +22,8 @@ urlpatterns = [
     path('orders',ShopOrderView.as_view()),
     path('orders/<int:id>',ShopOrderView.as_view()),
     path('manage-stock/<int:id>',ShopStockView.as_view()),
+
+    path('items/<int:id>',ShopItemsView.as_view()),
+    path('items/add',ShopItemAddView.as_view()),
+    path('items/delete/<int:id>',ShopDeleteItemsView.as_view()),
 ]
